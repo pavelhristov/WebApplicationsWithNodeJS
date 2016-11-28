@@ -1,0 +1,7 @@
+extends _layout
+
+block content
+    ul
+        each superhero in result.superheroes
+            li
+                a(href="/superheroes/" + superhero._id)= superhero.name

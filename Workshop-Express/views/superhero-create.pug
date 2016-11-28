@@ -1,0 +1,34 @@
+extends _layout
+
+block content
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 Create Superhero
+
+        form(method='POST' action='/superheroes/create')
+          div.form-group
+            label(for='name') Name:
+            input#name.form-control(type='text', placeholder='name' name='name')
+          div.form-group
+            label(for='secretIdentity') Secret Identity:
+            input#secretIdentity.form-control(type='text', placeholder='secret identity' name='secretIdentity')
+          div.form-group
+            label(for='city') City:
+            input#city.form-control(type='text', placeholder='city' name='city')
+          div.form-group
+            label(for='alignment') alignment:
+            input#alignment.form-control(type='text',placeholder="neutral" name='alignment')
+          div.form-group
+            label(for='story') story:
+            input#story.form-control(type='text' name='story')
+          div.form-group
+            label(for='image') Image:
+            input#image.form-control(type='text' name='image')
+          div.form-group
+            label(for='powers') Powers:
+            input#powers.form-control(type='text' name='powers')
+          div.form-group
+            label(for='fractions') Fractions:
+            input#fractions.form-control(type='text' name='fractions')
+          button.btn.btn-primary(type='submit') Create Superhero

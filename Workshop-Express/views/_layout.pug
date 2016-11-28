@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+    meta(charset="UTF-8")
+    title 
+        block app-title
+    //- link(rel="stylesheet", href="/static/bower_components/bootstrap/dist/css/bootstrap.css")
+body
+    nav
+        div
+            a(href= "/home")= "Home"
+        div
+            a(href= "/superheroes")= "Superheroes"
+        div
+            a(href= "/superheroes/create")= "Create Superhero"
+        if result.user
+            if result.user.username
+                div 
+                    a(href= "/profile")= "Profile"
+                div
+                    a(href= "/logout")= "Logout"
+        else
+            div
+                a(href= "/login")= "Login"
+            div
+                a(href= "/register")= "Register"
+
+    block content
