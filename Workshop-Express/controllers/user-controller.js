@@ -25,7 +25,10 @@ module.exports = function(data) {
             }
         },
         getUnauthorized(req, res) {
-            res.render("unauthorised");
+            const user = req.user;
+            res.render("unauthorised", {
+                result: { user }
+            });
         },
         getRegister(req, res) {
             const user = req.user;

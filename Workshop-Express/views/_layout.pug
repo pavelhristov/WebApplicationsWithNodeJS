@@ -11,10 +11,10 @@ body
             a(href= "/home")= "Home"
         div
             a(href= "/superheroes")= "Superheroes"
-        div
-            a(href= "/superheroes/create")= "Create Superhero"
         if result.user
             if result.user.username
+                div
+                    a(href= "/superheroes/create")= "Create Superhero"
                 div 
                     a(href= "/profile")= "Profile"
                 div

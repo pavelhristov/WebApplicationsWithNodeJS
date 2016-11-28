@@ -8,6 +8,7 @@ const express = require("express");
 module.exports = function(app, data) {
     const authController = require('../controllers/auth-controller')(data),
         userController = require('../controllers/user-controller')(data),
+        auth = require('../middlewares/auth-middleware'),
         passport = require('passport');
 
     const router = express.Router();
@@ -21,7 +22,7 @@ module.exports = function(app, data) {
         .get('/logout', authController.logout)
         .get('/register', userController.getRegister)
         .post('/register', authController.register)
-        .get('/profile', userController.getProfile)
+        .get('/profile', auth.isAuthenticated, userController.getProfile)
         .get('/unauthorized', userController.getUnauthorized)
         .get('/', (req, res) => { res.redirect("/home"); });
 
