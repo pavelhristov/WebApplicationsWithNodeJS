@@ -16,9 +16,9 @@ module.exports = function(app, data) {
     router
         .get('/home', userController.getHome)
         .get('/login', userController.getLogin)
-        .post('/login',
-            passport.authenticate("local", { failureRedirect: "/auth/sign-in" }),
-            (req, res) => res.redirect("/home"))
+        .post('/login', authController.loginLocal)
+        // passport.authenticate("local", { failureRedirect: "/auth/sign-in" }),
+        // (req, res) => res.redirect("/home"))
         .get('/logout', authController.logout)
         .get('/register', userController.getRegister)
         .post('/register', authController.register)

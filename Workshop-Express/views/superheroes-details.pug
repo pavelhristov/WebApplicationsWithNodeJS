@@ -5,13 +5,16 @@ block content
     h1= result.superhero.name
     p= result.superhero.secretIdentity
     p= result.superhero.city
-    p= "Powers: "
-        ul
-            each power in result.superhero.powers
-                li
-                    p= power
-    p= "Fractions: "
-        ul
-            each fraction in result.superhero.fractions
-                li
-                    p= fraction
+    p= result.superhero.alignment
+    if result.superhero.powers
+        p= "Powers: "
+            ul
+                each power in result.superhero.powers
+                    li
+                        p= power
+    if result.superhero.fraction
+        p= "Fractions: "
+            ul
+                each fraction in result.superhero.fractions
+                    li
+                        p= fraction

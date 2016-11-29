@@ -12,12 +12,22 @@ module.exports = function(data) {
         getById(req, res) {
             const user = req.user;
             data.getSuperheroById(req.params.id)
-                .then(superhero => {
-                    if (superhero === null) {
+                .then(sh => {
+                    if (sh === null) {
                         return res.status(404)
                             .redirect("/error");
                     }
-
+                    let superhero;
+                    if (req.isAuthenticated()) {
+                        superhero = sh;
+                    } else {
+                        superhero = {
+                            name: sh.name,
+                            image: sh.image,
+                            secretIdentity: sh.secretIdentity,
+                            alignment: sh.alignment
+                        };
+                    }
                     return res.render("superheroes-details", {
                         result: { superhero, user }
                     });
