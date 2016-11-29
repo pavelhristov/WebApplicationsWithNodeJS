@@ -45,7 +45,9 @@ module.exports = function(data) {
             data.createUser(user.username, user.displayname, user.password)
                 .then(dbUser => {
                     res.status(201)
-                        .render("user-profile");
+                        .render("user-profile", {
+                            result: {}
+                        });
                 })
                 .catch(error => res.status(500).json(error));
         }

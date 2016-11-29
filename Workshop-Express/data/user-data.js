@@ -1,5 +1,6 @@
 module.exports = function(models) {
-    let User = models.User;
+    let User = models.User,
+        encrypt = require('../utils/encrypt');
 
     return {
         findUserById(id) {
@@ -25,7 +26,15 @@ module.exports = function(models) {
             });
         },
         createUser(username, displayname, password) {
-            let user = new User({ username, displayname, password });
+            const salt = encrypt.generateSalt();
+
+            let user = new User({
+                username,
+                displayname,
+                //password,
+                salt: salt,
+                passHash: encrypt.hashPassword(salt, password || encrypt.genenerateRandomPassword()),
+            });
 
             return new Promise((resolve, reject) => {
                 user.save(err => {

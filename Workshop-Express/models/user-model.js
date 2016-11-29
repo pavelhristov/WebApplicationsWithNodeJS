@@ -18,10 +18,12 @@ let schema = new mongoose.Schema({
         unique: true,
         validate: [validators.isLength(5, 30)]
     },
-    password: {
-        type: String,
-        required: true
-    }
+    // password: {
+    //     type: String,
+    //     required: true
+    // }
+    salt: {},
+    passHash: {}
 });
 
 schema.plugin(uniqueValidator);
