@@ -2,8 +2,8 @@
 
 const express = require("express");
 
-module.exports = function(app, data) {
-    const controller = require("../controllers/superhero-controller")(data),
+module.exports = function({ app, data, io }) {
+    const controller = require("../controllers/superhero-controller")({ data, io }),
         auth = require('../middlewares/auth-middleware');
 
     let router = new express.Router();

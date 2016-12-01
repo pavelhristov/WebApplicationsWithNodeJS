@@ -6,7 +6,7 @@ block content
       .col-md-6.col-md-offset-3
         h1.display-4.m-b-2 Create Superhero
 
-        form(method='POST' action='/superheroes/create')
+        form#superhero-create-form(method='POST' action='/superheroes/create')
           div.form-group
             label(for='name') Name:
             input#name.form-control(type='text', placeholder='name' name='name')
@@ -31,4 +31,4 @@ block content
           div.form-group
             label(for='fractions') Fractions:
             input#fractions.form-control(type='text' name='fractions')
-          button.btn.btn-primary(type='submit') Create Superhero
+          button#btn-submit.btn.btn-primary(type='submit') Create Superhero

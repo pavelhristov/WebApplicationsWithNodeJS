@@ -2,7 +2,7 @@
 
 const passport = require('passport');
 
-module.exports = function(data) {
+module.exports = function({ data }) {
     return {
         loginLocal(req, res, next) {
             const auth = passport.authenticate('local', function(error, user) {
@@ -36,17 +36,21 @@ module.exports = function(data) {
             res.redirect('/home');
         },
         register(req, res) {
-            const user = {
+            const newUser = {
                 username: req.body.username,
                 displayname: req.body.displayname,
                 password: req.body.password
             };
 
-            data.createUser(user.username, user.displayname, user.password)
+            data.createUser(newUser.username, newUser.displayname, newUser.password)
                 .then(dbUser => {
+                    let user = {
+                        username: dbUser.username,
+                        displayname: dbUser.displayname
+                    };
                     res.status(201)
                         .render("user-profile", {
-                            result: {}
+                            result: { user }
                         });
                 })
                 .catch(error => res.status(500).json(error));

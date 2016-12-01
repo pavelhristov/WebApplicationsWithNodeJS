@@ -5,9 +5,9 @@ const express = require("express");
 
 
 
-module.exports = function(app, data) {
-    const authController = require('../controllers/auth-controller')(data),
-        userController = require('../controllers/user-controller')(data),
+module.exports = function({ app, data }) {
+    const authController = require('../controllers/auth-controller')({ data }),
+        userController = require('../controllers/user-controller')({ data }),
         auth = require('../middlewares/auth-middleware'),
         passport = require('passport');
 

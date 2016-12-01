@@ -1,9 +1,10 @@
-module.exports = function(data) {
+module.exports = function({ data, io }) {
     return {
         getAll(req, res) {
             const user = req.user;
             data.getAllSuperheroes()
                 .then(superheroes => {
+                    io.sockets.emit('hi', { hello: 'everyone' });
                     res.render("superheroes-list", {
                         result: { superheroes, user }
                     });
@@ -40,13 +41,25 @@ module.exports = function(data) {
             });
         },
         create(req, res) {
-            console.log(req.body);
+            let username = req.user.username;
             let body = req.body;
             data.createSuperhero(body.name, body.secretIdentity, body.city, body.alignment, body.story, body.image, body.powers, body.fractions)
-                .then(() => {
-                    res.redirect("/superheroes");
+                .then((superhero) => {
+                    io.sockets.emit('newSuperhero', {
+                        message: `${superhero.name} has joined the Universe!`,
+                        superheroId: `${superhero._id}`,
+                        creator: `${username}`
+                    });
+
+                    return res.status(201).redirect("/superheroes");
                 }).catch(err => {
                     console.log(err);
+                    if (err.superheroId) {
+                        io.sockets.emit("superheroAlreadyExists", {
+                            message: `${err.message}`,
+                            superheroId: `${err.superheroId}`
+                        });
+                    }
                 });
         }
     };

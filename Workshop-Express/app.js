@@ -7,15 +7,15 @@ const io = require('socket.io')(server);
 
 
 
-require("./routers")({ app, data });
+require("./routers")({ app, data, io });
 
 
-io.on('connection', function(socket) {
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function(data) {
-        console.log(data);
-    });
-});
+// io.on('connection', function(socket) {
+//     socket.emit('news', { hello: 'world' });
+//     socket.on('my other event', function(data) {
+//         console.log(data);
+//     });
+// });
 
 // crate initial superhero!
 data.getSuperheroByName("Batman").then((superhero) => {

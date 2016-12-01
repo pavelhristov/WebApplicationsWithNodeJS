@@ -48,14 +48,21 @@ module.exports = function(models) {
                 powers,
                 fractions
             });
-
             return new Promise((resolve, reject) => {
-                superhero.save(err => {
-                    if (err) {
-                        return reject(err);
+                Superhero.findOne({ name: name }, (err, sh) => {
+                    if (sh) {
+                        reject({
+                            message: `${sh.name} already exists`,
+                            superheroId: `${sh._id}`
+                        });
                     }
+                    superhero.save(err => {
+                        if (err) {
+                            return reject(err);
+                        }
 
-                    return resolve(superhero);
+                        return resolve(superhero);
+                    });
                 });
             });
         }
